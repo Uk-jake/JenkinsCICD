@@ -61,7 +61,7 @@ pipeline {
             }
         }
     }
-
+//
 //     post {
 //         always { // 빌드가 완료된 후 항상 실행되는 블록
 //             publishHTML(target: [
