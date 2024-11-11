@@ -17,6 +17,9 @@ pipeline {
                    DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
                    DOCKER_HUB_CREDENTIAL_ID = 'docker-hub'
                }
+
+               echo "DOCKER_HUB_FULL_URL: ${DOCKER_HUB_FULL_URL}"
+
            }
         }
 
