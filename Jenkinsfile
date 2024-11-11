@@ -45,22 +45,21 @@ pipeline {
                     reportDir: 'build/reports/jacoco/test/html', // 리포트 디렉터리 경로
                     reportFiles: 'index.html', // 리포트 파일 이름
                     reportName: 'Jacoco Report' // 리포트의 이름 설정
-//                 ])
+                ]) // 닫는 대괄호를 주석 처리하지 않음
             }
         }
 
-        stage("Gradle Build"){
-          steps{
-              sh "./gradlew clean build"
-          }
+        stage("Gradle Build") { // Gradle 빌드 단계
+            steps {
+                sh "./gradlew clean build" // Gradle을 사용해 프로젝트를 클린 빌드
+            }
         }
 
-        stage("Docker Image Build"){
-          steps{
-              sh "docker build -t jenkins1111 ."
-          }
+        stage("Docker Image Build") { // Docker 이미지를 빌드하는 단계
+            steps {
+                sh "docker build -t jenkins1111 ." // Docker 이미지를 빌드하고 태그를 jenkins1111로 설정
+            }
         }
-
     }
 
     post {
