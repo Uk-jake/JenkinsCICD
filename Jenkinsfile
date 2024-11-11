@@ -62,18 +62,18 @@ pipeline {
         }
     }
 
-    post {
-        always { // 빌드가 완료된 후 항상 실행되는 블록
-            publishHTML(target: [
-                reportDir: 'build/reports/checkstyle/', // Checkstyle 리포트 경로
-                reportFiles: 'main.html', // 리포트 파일 이름
-                reportName: 'Checkstyle Report' // 리포트의 이름 설정
-            ])
-            publishHTML(target: [
-                reportDir: 'build/reports/jacoco/test/html', // Jacoco 리포트 경로
-                reportFiles: 'index.html', // 리포트 파일 이름
-                reportName: 'Jacoco Report' // 리포트의 이름 설정
-            ])
-        }
+//     post {
+//         always { // 빌드가 완료된 후 항상 실행되는 블록
+//             publishHTML(target: [
+//                 reportDir: 'build/reports/checkstyle/', // Checkstyle 리포트 경로
+//                 reportFiles: 'main.html', // 리포트 파일 이름
+//                 reportName: 'Checkstyle Report' // 리포트의 이름 설정
+//             ])
+//             publishHTML(target: [
+//                 reportDir: 'build/reports/jacoco/test/html', // Jacoco 리포트 경로
+//                 reportFiles: 'index.html', // 리포트 파일 이름
+//                 reportName: 'Jacoco Report' // 리포트의 이름 설정
+//             ])
+//         }
     }
 }
