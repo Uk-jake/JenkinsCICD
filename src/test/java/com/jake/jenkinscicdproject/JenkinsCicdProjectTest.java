@@ -14,6 +14,7 @@ public class JenkinsCicdProjectTest {
         assertEquals(9, service.sum(4,5));
         assertEquals(-1, service.minus(5,6));
         assertEquals(0, service.minus(5,5));
+        assertEquals(1, service.minus(5,4));
 
     }
 }
