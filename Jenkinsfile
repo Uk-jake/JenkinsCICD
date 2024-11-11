@@ -1,17 +1,16 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage("checkout"){
-            steps{
+    stages {
+        stage("checkout") {
+            steps {
                 sh "echo checkout"
-
-                //git url: "https://github.com/Uk-jake/JenkinsCICD.git", branch: "master"
+                // git url: "https://github.com/Uk-jake/JenkinsCICD.git", branch: "master"
             }
-            stage("Compile"){
-               steps{
-                sh "./gradlew compile.java"
+        }
 
-               }
+        stage("Compile") {
+            steps {
+                sh "./gradlew compile.java"
             }
         }
     }
