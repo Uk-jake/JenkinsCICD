@@ -8,6 +8,13 @@ pipeline {
             }
         }
 
+        stage("Permission"){
+            steps{
+                sh "chmod +x ./gradlew"
+            }
+
+        }
+
         stage("Compile") {
             steps {
                 sh "./gradlew compile.java"
