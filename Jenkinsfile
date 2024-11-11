@@ -75,5 +75,5 @@ pipeline {
 //                 reportName: 'Jacoco Report' // 리포트의 이름 설정
 //             ])
 //         }
-    }
+//     }
 }
