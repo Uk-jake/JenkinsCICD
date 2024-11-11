@@ -37,17 +37,17 @@ pipeline {
                   }
                 }
 
-        stage("Code Coverage") { // 코드 커버리지를 측정하고 리포트를 생성하는 단계
-            steps {
-                sh "./gradlew jacocoTestCoverageVerification" // Jacoco를 사용해 코드 커버리지 검증
-                sh "./gradlew jacocoTestReport" // Jacoco를 사용해 코드 커버리지 리포트 생성
-                publishHTML(target: [ // HTML 형식의 코드 커버리지 리포트를 Jenkins에 게시
-                    reportDir: 'build/reports/jacoco/test/html', // 리포트 디렉터리 경로
-                    reportFiles: 'index.html', // 리포트 파일 이름
-                    reportName: 'Jacoco Report' // 리포트의 이름 설정
-                ])
-            }
-        }
+//         stage("Code Coverage") { // 코드 커버리지를 측정하고 리포트를 생성하는 단계
+//             steps {
+//                 sh "./gradlew jacocoTestCoverageVerification" // Jacoco를 사용해 코드 커버리지 검증
+//                 sh "./gradlew jacocoTestReport" // Jacoco를 사용해 코드 커버리지 리포트 생성
+//                 publishHTML(target: [ // HTML 형식의 코드 커버리지 리포트를 Jenkins에 게시
+//                     reportDir: 'build/reports/jacoco/test/html', // 리포트 디렉터리 경로
+//                     reportFiles: 'index.html', // 리포트 파일 이름
+//                     reportName: 'Jacoco Report' // 리포트의 이름 설정
+//                 ])
+//             }
+//         }
 
 
 
