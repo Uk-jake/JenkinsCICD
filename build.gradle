@@ -5,6 +5,9 @@ plugins {
 
 	// Code Coverage : jacoco
 	id 'jacoco'
+
+	// Static Test : Code style
+	id 'checkstyle'
 }
 
 // Code Coverage Setting
@@ -18,6 +21,15 @@ jacocoTestCoverageVerification{
 		}
 	}
 }
+
+// Check Style
+checkstyle {
+	maxWarnings = 0
+	configFile = file("${rootDir}/config/checkstyle.xml")
+	configProperties = ["suppressionFile":"${rootDir}/config/checkstyle-suppressions.xml"]
+	toolVersion = "8.42"
+}
+
 
 
 group = 'com.jake'

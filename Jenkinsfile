@@ -26,6 +26,17 @@ pipeline {
             }
         }
 
+        stage("Static Code Analysis"){
+                  steps{
+                      sh "./gradlew checkstyleMain"
+                          publishHTML(target: [
+                                      reportDir: 'build/reports/checkstyle/',
+                                      reportFiles: 'main.html',
+                                      reportName: 'Checkstyle Report'
+                          ])
+                  }
+                }
+
         stage("Code Coverage") { // 코드 커버리지를 측정하고 리포트를 생성하는 단계
             steps {
                 sh "./gradlew jacocoTestCoverageVerification" // Jacoco를 사용해 코드 커버리지 검증
@@ -37,5 +48,8 @@ pipeline {
                 ])
             }
         }
+
+
+
     }
 }
