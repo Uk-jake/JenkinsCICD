@@ -2,7 +2,23 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
+
+	// Code Coverage : jacoco
+	id 'jacoco'
 }
+
+// Code Coverage Setting
+jacocoTestCoverageVerification{
+	violationRules{
+		rule{
+			limit{
+				// 20% 이상 테스트 진행 시 빌드 진행
+				minimum = 0.2
+			}
+		}
+	}
+}
+
 
 group = 'com.jake'
 version = '0.0.1-SNAPSHOT'
