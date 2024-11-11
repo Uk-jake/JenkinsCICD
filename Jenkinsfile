@@ -29,11 +29,11 @@ pipeline {
         stage("Static Code Analysis") { // 정적 코드 분석을 실행하는 단계
             steps {
                 sh "./gradlew checkstyleMain" // Checkstyle을 사용해 코드 분석
-                publishHTML(target: [ // HTML 형식의 Checkstyle 리포트를 Jenkins에 게시
-                    reportDir: 'build/reports/checkstyle/', // 리포트 디렉터리 경로
-                    reportFiles: 'main.html', // 리포트 파일 이름
-                    reportName: 'Checkstyle Report' // 리포트의 이름 설정
-                ])
+//                 publishHTML(target: [ // HTML 형식의 Checkstyle 리포트를 Jenkins에 게시
+//                     reportDir: 'build/reports/checkstyle/', // 리포트 디렉터리 경로
+//                     reportFiles: 'main.html', // 리포트 파일 이름
+//                     reportName: 'Checkstyle Report' // 리포트의 이름 설정
+//                 ])
             }
         }
 
@@ -41,11 +41,11 @@ pipeline {
             steps {
                 sh "./gradlew jacocoTestCoverageVerification" // Jacoco를 사용해 코드 커버리지 검증
                 sh "./gradlew jacocoTestReport" // Jacoco를 사용해 코드 커버리지 리포트 생성
-                publishHTML(target: [ // HTML 형식의 코드 커버리지 리포트를 Jenkins에 게시
-                    reportDir: 'build/reports/jacoco/test/html', // 리포트 디렉터리 경로
-                    reportFiles: 'index.html', // 리포트 파일 이름
-                    reportName: 'Jacoco Report' // 리포트의 이름 설정
-                ])
+//                 publishHTML(target: [ // HTML 형식의 코드 커버리지 리포트를 Jenkins에 게시
+//                     reportDir: 'build/reports/jacoco/test/html', // 리포트 디렉터리 경로
+//                     reportFiles: 'index.html', // 리포트 파일 이름
+//                     reportName: 'Jacoco Report' // 리포트의 이름 설정
+//                 ])
             }
         }
     }
