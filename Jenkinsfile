@@ -48,6 +48,12 @@ pipeline {
 //                 ])
             }
         }
+
+        stage("Gradle Build"){
+          steps{
+              sh "./gradlew clean build"
+          }
+        }
     }
 
     post {
