@@ -101,11 +101,20 @@ pipeline {
 //             }
 //         }
 
+        // 동일한 서버에 docker container 실행
         stage('deploy'){
-                steps{
-                    sh "docker run -d --rm -p 8000:8080 ${imagename}"
-                }
+            steps{
+                sh "docker run -d --rm -p 8000:8080 ${imagename}"
             }
+        }
+
+        // 인수 테스트
+        stage('acceptance test') {
+            steps {
+                // acceptance_test.sh 실행
+                sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
+            }
+        }
 
     // stages
     }
