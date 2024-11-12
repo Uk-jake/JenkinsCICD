@@ -82,6 +82,17 @@ pipeline {
             }
         }
 
+        stage("Push Docker Image") { // Docker Hub에 이미지를 푸시하는 단계
+                    steps {
+                        script {
+                            // Docker Hub에 로그인하고 이미지 푸시
+                            docker.withRegistry('', registryCredential) {
+                                sh "docker push ${imagename}" // Docker Hub에 이미지 푸시
+                            }
+                        }
+                    }
+                }
+
         // 남은 작엄
         // 1. docker-hub에 업로드
         // 2. docker-hub에서 image 다운
