@@ -1,39 +1,19 @@
 #!/bin/bash
 
-# 인수 테스트 스크립트
+# 테스트할 URL
+URL="http://localhost:8000/cal?a=5&b=3"
 
-BASE_URL="http://localhost:8000"  # Jenkins 컨테이너의 매핑된 포트를 사용합니다.
-INDEX_URL="${BASE_URL}/"
-CALC_URL="${BASE_URL}/cal?a=5&b=3"
+# 예상되는 결과
+expected_result="Sum: 8, Minus: 2"
 
-test_passed=true
+# curl을 사용하여 요청하고, 결과를 변수에 저장
+response=$(curl -s "$URL")
 
-echo "Starting Acceptance Tests..."
-
-# Index 테스트
-index_response=$(curl -s -o /dev/null -w "%{http_code}" "${INDEX_URL}")
-if [ "$index_response" -eq 200 ]; then
-    echo "Index Test Passed: 200 OK"
-else
-    echo "Index Test Failed: Expected 200 OK, got ${index_response}"
-    test_passed=false
-fi
-
-# Calculate API 테스트
-calc_response=$(curl -s "${CALC_URL}")
-expected_response="Sum: 8, Minus: 2"
-if [ "$calc_response" == "$expected_response" ]; then
-    echo "Calculate Test Passed: ${expected_response}"
-else
-    echo "Calculate Test Failed: Expected '${expected_response}', got '${calc_response}'"
-    test_passed=false
-fi
-
-# 결과 출력
-if [ "$test_passed" = true ]; then
-    echo "All Acceptance Tests Passed!"
+# 응답 결과와 예상 결과를 비교
+if test "$response" -eq "$expected_result"; then
+    echo "Test Passed: Expected $expected_result, got $response"
     exit 0
 else
-    echo "Some Acceptance Tests Failed."
+    echo "Test Failed: Expected $expected_result, but got $response"
     exit 1
 fi

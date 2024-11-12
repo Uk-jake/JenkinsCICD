@@ -111,6 +111,9 @@ pipeline {
         // 인수 테스트
         stage('acceptance test') {
             steps {
+                // docker container를 -d로 실행시킬 경우 비동기 처리가 되어
+                // 실행 전에 테스트가 진행되는 경우를 막기 위해 sleep사용
+                sleep 60
                 // acceptance_test.sh 실행
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
