@@ -133,7 +133,9 @@ pipeline {
     post{
         always{
             echo "finalize"
-            sh "docker rmi $(docker images -aq)"
+
+            // 현재 사용 중이지 않은 이미지만 삭제
+            sh "docker image prune -f"
         }
     }
 }
