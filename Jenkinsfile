@@ -90,15 +90,23 @@ pipeline {
                     }
                 }
 
-        stage('SSH-Server-EC2') {
-            steps {
-                sshagent(credentials: ['TestImage_ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run -i -p 8080:8080 -d ${imagename}"'
+        // EC2 Server docker container 실행
+//         stage('SSH-Server-EC2') {
+//             steps {
+//                 sshagent(credentials: ['TestImage_ssh']) {
+//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
+//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
+//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run -i -p 8080:8080 -d ${imagename}"'
+//                 }
+//             }
+//         }
+
+        stage('deploy'){
+                steps{
+                    sh "docker run -d --rm -p 8000:8080 ${imagename}"
                 }
             }
-        }
+
     // stages
     }
 }
