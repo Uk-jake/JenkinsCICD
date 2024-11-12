@@ -95,7 +95,7 @@ pipeline {
                 sshagent(credentials: ['TestImage_ssh']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run -p 8080:8080 ${imagename}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run -i -p 8080:8080 -d ${imagename}"'
                 }
             }
         }
