@@ -1,5 +1,10 @@
 pipeline {
     agent any // Jenkins가 가용한 모든 에이전트에서 실행되도록 설정
+     environment {
+            imagename = "ukjang/springcalculation"
+            registryCredential = 'docker-hub'
+            dockerImage = ''
+        }
     stages {
         stage("checkout") { // 소스 코드 Checkout 단계
             steps {
@@ -73,7 +78,7 @@ pipeline {
 
         stage("Docker Image Build") { // Docker 이미지를 빌드하는 단계
             steps {
-                sh "docker build -t jenkins1111 ." // Docker 이미지를 빌드하고 태그를 jenkins1111로 설정
+                sh "docker build -t ${imagename} ." // Docker 이미지를 빌드하고 태그를 imagename 설정
             }
         }
 
