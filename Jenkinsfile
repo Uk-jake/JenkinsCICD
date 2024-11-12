@@ -90,18 +90,15 @@ pipeline {
                     }
                 }
 
-        stage('SSH-Server-EC2'){
-                    steps {
-                        sshagent(credentials: ['TestImage_ssh']) {
-                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
-                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
-                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run ${imagename}'
-                        }
-                    }
+        stage('SSH-Server-EC2') {
+            steps {
+                sshagent(credentials: ['TestImage_ssh']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run -p 8080:8080 ${imagename}"'
                 }
-
-        // 1. docker-hub에서 image 다운
-        // 2. Public Cloud에 docker image 실행 -> docker 사용하던 k8s
-
+            }
+        }
+    // stages
     }
 }
