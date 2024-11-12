@@ -122,15 +122,18 @@ pipeline {
 
         stage('clean up'){
             steps{
-                sh 'docker stop ${containerName}'
+                sh "docker stop ${containerName}"
                 }
             }
     // stages
     }
 
+    // stages 성공 관계 없이 항상 실행되는 구문
+    // 주로 로그, 알람, 시스템 정리하는 구문을 post단계에 작성한다.
     post{
         always{
             echo "finalize"
+            sh "docker rmi $(docker images -aq)"
         }
     }
 }
