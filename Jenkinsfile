@@ -5,6 +5,7 @@ pipeline {
             registryCredential = 'docker-hub'
             ubuntuIp = '13.209.76.15'
             dockerImage = ''
+            containerName = "springcalculation"
         }
     stages {
         stage("checkout") { // 소스 코드 Checkout 단계
@@ -104,7 +105,7 @@ pipeline {
         // 동일한 서버에 docker container 실행
         stage('deploy'){
             steps{
-                sh "docker run -d --rm -p 8000:8080 ${imagename}"
+                sh "docker run -d --rm -p 8000:8080 ${containerName} ${imagename}"
             }
         }
 
@@ -113,12 +114,23 @@ pipeline {
             steps {
                 // docker container를 -d로 실행시킬 경우 비동기 처리가 되어
                 // 실행 전에 테스트가 진행되는 경우를 막기 위해 sleep사용
-                sleep 60
+                sleep 20
                 // acceptance_test.sh 실행
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
         }
 
+        stage('clean up'){
+            steps{
+                sh 'docker stop ${containerName}'
+                }
+            }
     // stages
+    }
+
+    post{
+        always{
+            echo "finalize"
+        }
     }
 }
