@@ -3,6 +3,7 @@ pipeline {
      environment {
             imagename = "ukjang/springcalculation"
             registryCredential = 'docker-hub'
+            ubuntuIp = '13.209.76.15'
             dockerImage = ''
         }
     stages {
@@ -16,15 +17,11 @@ pipeline {
         stage("Set Variables"){
            steps{
                echo "SetVariables"
-
                script{
                    DOCKER_HUB_URL = 'registry.hub.docker.com'
                    DOCKER_HUB_FULL_URL = 'https://' + DOCKER_HUB_URL
                    DOCKER_HUB_CREDENTIAL_ID = 'docker-hub'
                }
-
-               echo "DOCKER_HUB_FULL_URL: ${DOCKER_HUB_FULL_URL}"
-
            }
         }
 
@@ -93,26 +90,18 @@ pipeline {
                     }
                 }
 
-        // 남은 작엄
-        // 1. docker-hub에 업로드
-        // 2. docker-hub에서 image 다운
-        // 3. Public Cloud에 docker image 실행 -> docker 사용하던 k8s
+        stage('SSH-Server-EC2'){
+                    steps {
+                        sshagent(credentials: ['TestImage_ssh']) {
+                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "whoami"'
+                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker pull ${imagename}"'
+                            sh 'ssh -o StrictHostKeyChecking=no ubuntu@${ubuntuIp} "docker run ${imagename}'
+                        }
+                    }
+                }
 
+        // 1. docker-hub에서 image 다운
+        // 2. Public Cloud에 docker image 실행 -> docker 사용하던 k8s
 
     }
-
-//     post {
-//         always { // 빌드가 완료된 후 항상 실행되는 블록
-//             publishHTML(target: [
-//                 reportDir: 'build/reports/checkstyle/', // Checkstyle 리포트 경로
-//                 reportFiles: 'main.html', // 리포트 파일 이름
-//                 reportName: 'Checkstyle Report' // 리포트의 이름 설정
-//             ])
-//             publishHTML(target: [
-//                 reportDir: 'build/reports/jacoco/test/html', // Jacoco 리포트 경로
-//                 reportFiles: 'index.html', // 리포트 파일 이름
-//                 reportName: 'Jacoco Report' // 리포트의 이름 설정
-//             ])
-//         }
-//     }
 }
