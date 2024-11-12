@@ -77,6 +77,11 @@ pipeline {
             }
         }
 
+        // 남은 작엄
+        // 1. docker-hub에 업로드
+        // 2. docker-hub에서 image 다운
+        // 3. Public Cloud에 docker image 실행 -> docker 사용하던 k8s
+
 
     }
 
