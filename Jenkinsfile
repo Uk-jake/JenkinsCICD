@@ -105,7 +105,7 @@ pipeline {
         // 동일한 서버에 docker container 실행
         stage('deploy'){
             steps{
-                sh "docker run -d --rm -p 8000:8080 ${containerName} ${imagename}"
+                sh "docker run -d --rm -p 8000:8080 --name ${containerName} ${imagename}"
             }
         }
 
